@@ -41,7 +41,7 @@ const wib=()=>new Date(Date.now()+252e5);
 const key=()=>"hk_"+U.n+"|"+U.k;
 function load(){let d=null;try{d=JSON.parse(localStorage.getItem(key()))}catch(e){}D=d||{};D.mt=D.mt||{};D.rg=D.rg||{}}
 let st="ok",qq=Promise.resolve();
-async function api(o){try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)});const tx=await r.text();try{return JSON.parse(tx)}catch(x){return{ok:false,msg:"Server membalas bukan data (cek akses deployment = Siapa saja)."}}}catch(x){return{ok:false,msg:API.indexOf("GANTI")>=0?"URL web app belum diisi.":"Gagal terhubung. Periksa internet atau pengaturan deployment."}}}
+async function api(o){try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)});const tx=await r.text();try{return JSON.parse(tx)}catch(x){return{ok:false,msg:"Server membalas bukan data (cek akses deployment = Siapa saja)."}}}catch(x){return{ok:false,msg:API.indexOf("https://script.google.com/macros/s/AKfycbz3E2rDrGxSSCu0Pt6F3EXgReFV9MTAL01njecPczx3NwN56ao-lG0T9N1NEN3E3kQ/exec")>=0?"URL web app belum diisi.":"Gagal terhubung. Periksa internet atau pengaturan deployment."}}}
 function save(){try{localStorage.setItem(key(),JSON.stringify(D))}catch(e){}sync()}
 function sync(){if(!U)return;const b={a:"save",n:U.n,k:U.k,d:{mt:D.mt,rg:D.rg}};st="wait";bar();qq=qq.then(async()=>{const r=await api(b);st=r.ok?"ok":"err";bar()})}
 function bar(){const e=$("#sy");if(e)e.textContent=st=="ok"?"✔ Terkirim ke guru":st=="wait"?"⏳ Mengirim…":"⚠ Gagal kirim (ketuk)"}
